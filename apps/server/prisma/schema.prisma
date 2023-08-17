@@ -1,0 +1,57 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       Int     @id() @default(autoincrement())
+  email    String  @unique
+  name     String?
+  password String?
+  posts    Post[]
+
+
+
+}
+
+model Post {
+  id         Int        @id() @default(autoincrement())
+  title      String
+  content    String
+  users      User       @relation(fields: [userId], references: [id])
+  userId     Int
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime?  @updatedAt
+  deletedAt  DateTime?
+  comments   Comment[]
+  categories Category[]
+}
+
+model Category {
+  id             Int        @id @default(autoincrement())
+  category       String
+  parentCategory Category?  @relation("Categories", fields: [parentId], references: [id])
+  parentId       Int?
+  childCategory  Category[] @relation("Categories")
+  posts          Post[]
+
+}
+
+model Comment {
+  id        Int       @id @default(autoincrement())
+  content   String
+  nickname  String
+  password  String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+  deletedAt DateTime?
+  posts     Post      @relation(fields: [postId], references: [id])
+  postId    Int
+  parentId  Int?
+  parent    Comment?  @relation("ParentChildRelation", fields: [parentId], references: [id])
+  children  Comment[] @relation("ParentChildRelation")
+}
