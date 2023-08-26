@@ -1,0 +1,21 @@
+//테마로옮길지 고민중
+
+// main[aria-expanded='true'] {
+//   --nav-size: 200px;
+// }
+
+// main[aria-expanded='false'] {
+//   --nav-size: 100px;
+// }
+
+html[data-theme='dark'] {
+  --section-bg-color: #333;
+}
+
+html[data-theme='light'] {
+  --section-bg-color: #fff;
+}
+
+//z-index
+$zIndexNav: 100;
+$zIndexHeader: 90;

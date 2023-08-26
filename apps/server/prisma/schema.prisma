@@ -19,26 +19,34 @@ model User {
 }
 
 model Post {
-  id         Int        @id() @default(autoincrement())
-  title      String
-  content    String
-  users      User       @relation(fields: [userId], references: [id])
-  userId     Int
-  createdAt  DateTime   @default(now())
-  updatedAt  DateTime?  @updatedAt
-  deletedAt  DateTime?
-  comments   Comment[]
-  categories Category[]
+  id            Int           @id() @default(autoincrement())
+  title         String
+  content       String
+  users         User          @relation(fields: [userId], references: [id])
+  userId        Int
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime?     @updatedAt
+  deletedAt     DateTime?
+  comments      Comment[]
+  categories    Category?     @relation(fields: [categoryId], references: [id])
+  categoryId    Int?
+  subCategories SubCategory[]
 }
 
 model Category {
-  id             Int        @id @default(autoincrement())
-  category       String
-  parentCategory Category?  @relation("Categories", fields: [parentId], references: [id])
-  parentId       Int?
-  childCategory  Category[] @relation("Categories")
-  posts          Post[]
+  id            Int           @id @default(autoincrement())
+  name          String
+  posts         Post[]
+  subCategories SubCategory[]
+}
 
+model SubCategory {
+  id         Int    @id @default(autoincrement())
+  name       String
+  categoryId Int
+
+  category Category @relation(fields: [categoryId], references: [id])
+  posts    Post[]
 }
 
 model Comment {

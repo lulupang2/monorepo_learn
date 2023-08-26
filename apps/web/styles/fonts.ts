@@ -1,5 +1,4 @@
 import localFont from "next/font/local";
-import "../styles/global.css";
 
 export const pretendard = localFont({
   src: "./Pretendard-Regular.woff",
