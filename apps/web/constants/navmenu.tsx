@@ -9,7 +9,7 @@ export const NAV_MENU_LIST: any[] = [
     name: 'About Me',
     component: <About />,
     id: 'about',
-    path: '/#about',
+    path: '#about',
     icon: TiUserOutline,
   },
 
@@ -17,14 +17,14 @@ export const NAV_MENU_LIST: any[] = [
     name: 'Skill',
     component: <Skill />,
     id: 'skill',
-    path: '/#skill',
+    path: '#skill',
     icon: TiPen,
   },
   {
     name: 'Project',
     component: <Project />,
     id: 'project',
-    path: '/#project',
+    path: '#project',
     icon: TiDocumentText,
   },
 
@@ -32,14 +32,14 @@ export const NAV_MENU_LIST: any[] = [
     name: 'Work',
     component: <Work />,
     id: 'work',
-    path: '/#work',
+    path: '#work',
     icon: TiSpannerOutline,
   },
   {
     name: '임시',
     component: <Work />,
     id: 'work',
-    path: '/#',
+    path: '#',
     icon: TiSpannerOutline,
   },
 ];
