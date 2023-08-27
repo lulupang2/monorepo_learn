@@ -1,7 +1,7 @@
 import { Link } from '@chakra-ui/next-js';
 import { MenuItem } from '@web/types/nav.types';
 import clsx from 'clsx';
-import { Variant, motion } from 'framer-motion';
+import { HTMLMotionProps, Variant, motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 
 interface PropsType extends MenuItem {
@@ -12,7 +12,9 @@ interface PropsType extends MenuItem {
 type VariantType = {
   [key: string]: Variant;
 };
-
+type TransitionOptionType = {
+  [key: string]: HTMLMotionProps<'div'>;
+};
 const variants: VariantType = {
   showText: {
     translateX: 0,
@@ -47,17 +49,8 @@ function NavItem({ isHover, index, ...props }: PropsType) {
     };
   };
   return (
-    <Link scrollBehavior={'smooth'} href={props.path} className={classes('Items')}>
-      <Div
-        className={classes('Icon-Bg')}
-        layoutId="motion-icon-bg"
-        whileHover={{
-          borderRadius: '5px',
-          width: '100px',
-          transition: transition,
-        }}
-        whileTap={{ scale: 0.9 }}
-      >
+    <Link scrollBehavior={'smooth'} shallow href={props.path} className={classes('Items')}>
+      <Div className={classes('Icon-Bg')} {...transitionOption.bgTransition}>
         <props.icon className={classes('Icon-Item')} />
       </Div>
       <P
@@ -75,3 +68,19 @@ function NavItem({ isHover, index, ...props }: PropsType) {
 }
 
 export default NavItem;
+
+//애니메이션은 따로 빼는게 가독성이 좋아 보인다?
+
+const transitionOption: TransitionOptionType = {
+  bgTransition: {
+    whileTap: {
+      scale: 0.9,
+    },
+    whileHover: {
+      borderRadius: '5px',
+      width: '100px',
+      transition: { ...transition },
+    },
+  },
+  labelTransition: {},
+};
