@@ -1,7 +1,7 @@
-import { Link } from '@chakra-ui/next-js';
 import { MenuItem } from '@web/types/nav.types';
 import clsx from 'clsx';
 import { HTMLMotionProps, Variant, motion } from 'framer-motion';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 interface PropsType extends MenuItem {
@@ -36,10 +36,11 @@ const transition = {
 
 function NavItem({ isHover, index, ...props }: PropsType) {
   const classes = (className: string) => clsx(`Nav-${className}`);
+  const router = useRouter();
   const { div: Div, p: P } = motion;
   const navigation = useRouter();
   const onClick = () => {
-    console.log('click');
+    router.push(props.path);
   };
 
   const bgTransition = (int: number) => {
@@ -49,7 +50,7 @@ function NavItem({ isHover, index, ...props }: PropsType) {
     };
   };
   return (
-    <Link scrollBehavior={'smooth'} shallow href={props.path} className={classes('Items')}>
+    <Link shallow href={props.path} className={classes('Items')}>
       <Div className={classes('Icon-Bg')} {...transitionOption.bgTransition}>
         <props.icon className={classes('Icon-Item')} />
       </Div>
